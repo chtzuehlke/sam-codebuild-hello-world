@@ -1,0 +1,14 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      - pip install --user aws-sam-cli
+      - USER_BASE_PATH=$(python -m site --user-base)
+      - export PATH=$PATH:$USER_BASE_PATH/bin
+  build:
+    commands:
+      - echo Build started on `date`
+      - sam package --output-template-file packaged.yaml --s3-bucket $DEPLOYMENT_BUCKET --template-file template.yaml
+artifacts:
+    files: packaged.yaml
+
